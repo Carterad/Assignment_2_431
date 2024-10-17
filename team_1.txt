@@ -1,1 +1,49 @@
+(Problem 1 Solution) 
+exception BadInput of string
+let rec replicate x n = 
+    if n < 0 then
+        raise (BadInput "n must be non-negative")
+    else if n = 0 then
+        []
+    else
+        x :: replicate x (n - 1);;
 
+let replicate_tr x n = 
+    let rec helper acc x n = 
+        if n = 0 then
+            acc
+        else
+            helper (x :: acc) x (n - 1)
+    in
+    helper [] x n;;
+
+(Problem 4 Solution) 
+let rec leaf_count tree =
+    match tree with
+    | Empty -> 0
+    | Leaf _ -> 1
+    | Node (_, left, right) -> leaf_count left + leaf_count right;;
+
+(Problem 7 Solution)
+    (λt.λu.u t t) (λx.x) t
+    t (λx.x) (λx.x)
+    t (λx.x)
+
+(Problem 10 Solution) 
+    (λz.z t) (λz.(λt.t z) (λx.z x))
+    (λz.z t) (λz.(λx.z x)z)
+    (λz.z t) (λz.z z)
+    (λz.z z) t
+    t t
+
+(Problem 12 Solution)
+divisors :: Int -> [Int]
+divisors x = [ d | d <- [1..x-1], x `mod` d == 0 ]
+
+(Problem 13 Solution)     
+isPrime :: Int -> Bool
+isPrime n = divisors n == [1,n]
+    
+(Problem 16 Solution)
+perfs :: Int -> [Int]
+perfs n = [ x | x <- [1..n], sum (divisors x) == x ]
