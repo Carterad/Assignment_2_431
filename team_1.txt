@@ -17,6 +17,28 @@ let replicate_tr x n =
     in
     helper [] x n;;
 
+(Problem 2 Solution)
+Non tail recursive
+let rec makeList n =
+  if n < 0 then
+    failwith "n cannot be negative"
+  else if n = 0 then
+    []
+  else
+    makeList (n - 1) @ [n]
+
+Tail recursive
+let makeList n =
+  let rec aux n acc =
+    if n < 0 then
+      failwith "n cannot be negative"
+    else if n = 0 then
+      acc
+    else
+      aux (n - 1) (n :: acc)
+  in
+  aux n []
+
 (Problem 4 Solution) 
 let rec leaf_count tree =
     match tree with
@@ -24,10 +46,28 @@ let rec leaf_count tree =
     | Leaf _ -> 1
     | Node (_, left, right) -> leaf_count left + leaf_count right;;
 
+(Problem 5 Solution)
+(* Define the binary tree type *)
+type 'a tree =
+  | Empty
+  | Node of 'a * 'a tree * 'a tree
+
+(* Function to perform in-order traversal *)
+let rec inorder_traversal tree =
+  match tree with
+  | Empty -> []
+  | Node (value, left, right) ->
+      inorder_traversal left @ [value] @ inorder_traversal right
+
 (Problem 7 Solution)
     (λt.λu.u t t) (λx.x) t
     t (λx.x) (λx.x)
     t (λx.x)
+
+(Problem 8 Solution)
+(λz.zzz)(λy.yy)->(λy.yy)(λy.yy)(λy.yy)
+(λy.yy)(λy.yy)->(λy.yy)(λy.yy)
+(λy.yy)(λy.yy) no normal form
 
 (Problem 10 Solution) 
     (λz.z t) (λz.(λt.t z) (λx.z x))
@@ -36,6 +76,9 @@ let rec leaf_count tree =
     (λz.z z) t
     t t
 
+(Problem 11 Solution)
+functionName :: Int -> [Int]
+
 (Problem 12 Solution)
 divisors :: Int -> [Int]
 divisors x = [ d | d <- [1..x-1], x `mod` d == 0 ]
@@ -43,6 +86,21 @@ divisors x = [ d | d <- [1..x-1], x `mod` d == 0 ]
 (Problem 13 Solution)     
 isPrime :: Int -> Bool
 isPrime n = divisors n == [1,n]
+
+(Problem 13 Solution)
+-- Define the isPrime function
+isPrime :: Int -> Bool
+isPrime n = divisors n == [1, n]
+  where
+    divisors x = [d | d <- [1..x], x `mod` d == 0]
+
+-- Define an infinite list of prime numbers
+primes :: [Int]
+primes = filter isPrime [2..]
+
+-- Example usage: take the first 10 prime numbers
+firstTenPrimes :: [Int]
+firstTenPrimes = take 10 primes
     
 (Problem 16 Solution)
 perfs :: Int -> [Int]
