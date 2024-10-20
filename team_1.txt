@@ -1,4 +1,4 @@
-(Problem 1 Solution) 
+(* Problem 1 Solution *) 
 exception BadInput of string
 let rec replicate x n = 
     if n < 0 then
@@ -17,7 +17,7 @@ let replicate_tr x n =
     in
     helper [] x n;;
 
-(Problem 2 Solution)
+(* Problem 2 Solution *)
 Non tail recursive
 let rec makeList n =
   if n < 0 then
@@ -39,14 +39,28 @@ let makeList n =
   in
   aux n []
 
-(Problem 4 Solution) 
+(* Problem 3 Solution *)
+let rec reverse_non_tail lst =
+  match lst with
+  | [] -> []
+  | x :: xs -> (reverse_non_tail xs) @ [x]
+
+let reverse_tail lst =
+  let rec aux acc lst =
+    match lst with
+    | [] -> acc
+    | x :: xs -> aux (x :: acc) xs
+  in
+  aux [] lst
+
+(* Problem 4 Solution *)
 let rec leaf_count tree =
     match tree with
     | Empty -> 0
     | Leaf _ -> 1
     | Node (_, left, right) -> leaf_count left + leaf_count right;;
 
-(Problem 5 Solution)
+(* Problem 5 Solution *)
 (* Define the binary tree type *)
 type 'a tree =
   | Empty
@@ -59,35 +73,51 @@ let rec inorder_traversal tree =
   | Node (value, left, right) ->
       inorder_traversal left @ [value] @ inorder_traversal right
 
-(Problem 7 Solution)
+(* Problem 6 Solution *)
+let rec preorder tree =
+  match tree with
+  | Empty -> []
+  | Node (v, left, right) ->
+      v :: (preorder left) @ (preorder right)
+
+#Problem 7 Solution
     (λt.λu.u t t) (λx.x) t
     t (λx.x) (λx.x)
     t (λx.x)
 
-(Problem 8 Solution)
+#Problem 8 Solution
 (λz.zzz)(λy.yy)->(λy.yy)(λy.yy)(λy.yy)
 (λy.yy)(λy.yy)->(λy.yy)(λy.yy)
 (λy.yy)(λy.yy) no normal form
 
-(Problem 10 Solution) 
+# Problem 9 Solution
+(λx.xx)(λx.y)->(λx.y)(λx.y)
+(λx.y)(λx.y)->y
+y
+
+#Problem 10 Solution
     (λz.z t) (λz.(λt.t z) (λx.z x))
     (λz.z t) (λz.(λx.z x)z)
     (λz.z t) (λz.z z)
     (λz.z z) t
     t t
 
-(Problem 11 Solution)
+{- Problem 11 Solution -}
+divisors :: Int -> [Int]
+divisors n = [d | d <- [1..n], n `mod` d == 0]
 functionName :: Int -> [Int]
 
-(Problem 12 Solution)
+{- Problem 12 Solution -}
 divisors :: Int -> [Int]
-divisors x = [ d | d <- [1..x-1], x `mod` d == 0 ]
+divisors n = [d | d <- [1..n], n `mod` d == 0]
 
-(Problem 13 Solution)     
+{- Problem 13 Solution -}
+prime2000 :: Int
+prime2000 = primes !! 1999     
 isPrime :: Int -> Bool
 isPrime n = divisors n == [1,n]
 
-(Problem 13 Solution)
+{- Problem 14 Solution -}
 -- Define the isPrime function
 isPrime :: Int -> Bool
 isPrime n = divisors n == [1, n]
@@ -101,7 +131,11 @@ primes = filter isPrime [2..]
 -- Example usage: take the first 10 prime numbers
 firstTenPrimes :: [Int]
 firstTenPrimes = take 10 primes
-    
-(Problem 16 Solution)
+
+{- Problem 15 Solution -}
+prime2000 :: Int
+prime2000 = primes !! 1999
+
+{- Problem 16 Solution -}
 perfs :: Int -> [Int]
 perfs n = [ x | x <- [1..n], sum (divisors x) == x ]
